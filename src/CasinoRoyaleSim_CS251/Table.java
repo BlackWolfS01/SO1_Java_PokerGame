@@ -19,9 +19,10 @@ a card that could drastically affect which player wins that hand. Of course, the
 the second card drawn and put into play. The original intention here was to introduce slightly deeper gameplay,
 without any unnecessarially complexity.
 
-Same is also true for the Poker Disks: Dealer, Small Blind, and Big Blind. At the start of each new hand,
+Same goes for the Poker Disks: Dealer, Small Blind, and Big Blind. At the start of each new hand,
 every player is dealt one card, face up, and the player with the highest card recieves the dealer disk. Those
-players to their left and right recieve the Small Blind and Big Blind disks.
+players to their left and right recieve the Small Blind and Big Blind disks. These Blinds are meant to add chips/meony to
+the pot, and act as inscentive for players to bet.
 
 
 
@@ -35,7 +36,10 @@ public class Table implements UtilInterface {
     private List<Player> ActivePlayers = new LinkedList<>();
     private CardGame Card_Game;
     private LinkedList<Card> Community_Cards = new LinkedList<>();
+    
+    //Separate stack to hold burn cards
     public Stack<Card> Burn_Cards = new Stack<>();
+    
     private final Dealer House_Dealer;
     protected Map<String, Player> TableMap = new HashMap<>();
     protected Disk dealerDisk = new DealerDisk();
@@ -51,6 +55,7 @@ public class Table implements UtilInterface {
         _Deck = new Deck();
         House_Dealer.ReceiveDeck(_Deck);
     }
+    
     private String[] chairNames = {"Chair One", "Chair Two", "Chair Three", "Chair Four",
             "Chair Five",  "Chair Six", "Chair Seven", "Chair Eight", "Chair Nine", "Chair Ten"};
 
@@ -86,6 +91,8 @@ public class Table implements UtilInterface {
     */
     public void PlayHand(){
         House_Dealer.ShuffleDeck();
+        
+        //Method Call: Deals one card to each player
         Card_Game.DealACard(House_Dealer, ActivePlayers);
         Vector2D[] playerVector = new Vector2D[ActivePlayers.size()];
         for(int i = 0; i < playerVector.length; i++){
@@ -95,7 +102,8 @@ public class Table implements UtilInterface {
         for(Vector2D vector : playerVector){
             System.out.println(vector.getPlayerName() + ", "+ vector.get_CardValue());
         }
-
+        // Insertion Sort
+        // Arranges the playerVector array from lowest to highest
         int n = playerVector.length;
         for(int i = 0; i < n; i++){
             Vector2D key = playerVector[i];
@@ -106,11 +114,19 @@ public class Table implements UtilInterface {
             }
             playerVector[j + 1] = key;
         }
+        
+        // First in-First Out
+        // Going through the playerVector array in reverse
+        // The player with the highest card starts at the head of the queue
+        // And it proceeds from there
         Queue<Player> _PlayerOrder = new LinkedList<>();
 
         for(int i = playerVector.length - 1; i >= 0; i--){
             _PlayerOrder.add(playerVector[i].get_Player());
         }
+        
+        //Based on position in the queue
+        //All Poker Disks are dealt out to the players
         for(int i = 0; i < _PlayerOrder.size(); i++) {
             for(Player player : _PlayerOrder){
                 if(i == 0){
