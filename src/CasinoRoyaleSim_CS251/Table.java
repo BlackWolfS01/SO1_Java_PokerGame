@@ -5,7 +5,27 @@ import CasinoRoyaleSim_CS251.PokerDeck.Deck;
 
 import java.util.*;
 import java.util.Queue;
+/*
+Design Notes: Table Gameplay
 
+CasinnRoyaleSim is meant to closely resemble real life Texas Hold'em Poker. That includes simulating
+the rules that other games may ignore, or intentionally leave out. In tradiional Texas Hold'em, there's a
+concept known as Burn Cards, a dealer will intentional removes the top card from play. This regularly happens
+throughout a hand. When cards are dealt out and community cards are put into play.
+
+Mechanically, it's meant more as unpredictable element, a way to indirectly shape gameplay. Depending on a card's
+placement within the Deck(Stack). Every time a dealer burns the top most card. They are potentional removing
+a card that could drastically affect which player wins that hand. Of course, the same is also true for
+the second card drawn and put into play. The original intention here was to introduce slightly deeper gameplay,
+without any unnecessarially complexity.
+
+Same is also true for the Poker Disks: Dealer, Small Blind, and Big Blind. At the start of each new hand,
+every player is dealt one card, face up, and the player with the highest card recieves the dealer disk. Those
+players to their left and right recieve the Small Blind and Big Blind disks.
+
+
+
+*/
 /*  Table Map;
 
 
@@ -60,7 +80,10 @@ public class Table implements UtilInterface {
         System.out.println("Distribute Chips");
         ActivePlayers = Card_Game.ProvideChips(ActivePlayers);
     }
-
+    
+    /*
+    
+    */
     public void PlayHand(){
         House_Dealer.ShuffleDeck();
         Card_Game.DealACard(House_Dealer, ActivePlayers);
