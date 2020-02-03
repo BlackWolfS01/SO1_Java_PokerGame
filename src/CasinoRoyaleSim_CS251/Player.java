@@ -38,8 +38,22 @@ is being influenced by constanctly changing emotional state and high stakes game
 unpredictable, to say the least.
 
 This is going to take a lot of advanced situational scripting. Or, a modular design with actions and strategies
-are carried out. The latter seems like the prefereed option. Allows the game to be more streamlined and adapt
-for future markets.
+are carried out. Latter option proved to be the most feasible.
+
+Strategy Notes: Still a work in progress
+Main Objective: Flexibity
+
+Strategies are meant to actually influence the Neural Network's decision making process. Neural networks make choices via 
+Weight and Bias values. By giving prefered weight to certainn actions. It causes the network to prefer certain actions
+over others. Strategies can change based on a player's overall position within the game. If they are lossing chips, rapidly.
+They may be more desperate, and take greater risks. While others may play more defensively. Trying to buy time so they could
+make a comeback.
+
+Those emotional values would what strategy is used. And those values would, in turn, be influenced by cards, chips, and the other
+players. That Hidden Layer of information, that one that's meant to simulate a player's intuition about whether, or not, their
+opponent is bluffing. It's basically like a tell.
+
+Walking through it step by step. Everything starts with the two hole cards
  */
 
 public class Player implements Actions, UtilInterface, Analysis{
