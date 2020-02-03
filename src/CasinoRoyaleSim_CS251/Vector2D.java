@@ -1,5 +1,8 @@
 package CasinoRoyaleSim_CS251;
-
+/*
+A simple utility class for determming player order. The two variables are simply for 
+quick reference.
+*/
 public class Vector2D {
     private Player _Player;
     private int _CardValue;
